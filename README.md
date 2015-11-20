@@ -2,6 +2,7 @@
 The much less useful alternative to strict.lua
 
 Because having a bunch of globals is messy.
+
 Drop this in and any project that relies on globals will be rendered inoperable until it's fixed.
 
 # Usage
@@ -30,11 +31,19 @@ end
 ```
 
 # Modes
+## bobSaget
+Uses `_G["💩"]` to store the last variable's value, while simultaneously changing all global's contents to "💩".
+```
+a										💩
+💩										420
+people_that_arent_jackie_chan			💩
+ten_things_that_arent_jackie_chan		💩
+```
 ## janitor
 Uses `_G["💩"]` as a container for all global variables with names preserved.
 ```
-💩       								table: 0x2c56aea0
-💩.a       								420
+💩										table: 0x2c56aea0
+💩.a										420
 💩.people_that_arent_jackie_chan			table: 0x2c56af00
 💩.ten_things_that_arent_jackie_chan		table: 0x2c53ea58
 ```
@@ -49,10 +58,10 @@ Uses `_G["💩"]` to determine how long the next variable name should be.
 ## beanCounter
 Like Tamagotchi, uses `_G["💩"]` to change the variable name to the order it was declared, globally.
 ```
-💩       3
-💩1      420
-💩2      table: 0x2437eb80
-💩3      table: 0x2437ec10
+💩		3
+💩1		420
+💩2		table: 0x2437eb80
+💩3		table: 0x2437ec10
 ```
 
 # Advanced Usage
@@ -86,6 +95,7 @@ a=3 -- prints "_G, 'a', 3"
 
 # Why?
 Because LuaJIT lets me use unicode variable references, this is the natural extension of that.
+
 Despite that, this will work with non-LuaJIT environments.
 
 Also because it's fun.

@@ -33,32 +33,38 @@ poopsmith.safepoop = "\240\159\146\169"
 
 -- all the valid modes
 poopsmith.modes = {
-	tamagotchi = {
+	bobSaget = {
+		__newindex = function(g, name, value)
+			rawset(_G, poopsmith.unipoop, value)
+			return rawset(_G, name, poopsmith.unipoop) 
+		end
+	},
+	janitor = {
 		__smithSetup = function()
-			_G[poopsmith.unipoop] = 1
+			rawset(_G, poopsmith.unipoop, {})
 		end,
 		__newindex = function(g, name, value)
-			_G[poopsmith.unipoop] = _G[poopsmith.unipoop] + 1
+			return rawset(_G[poopsmith.unipoop], name, value) 
+		end
+	},
+	tamagotchi = {
+		__smithSetup = function()
+			rawset(_G, poopsmith.unipoop, 1)
+		end,
+		__newindex = function(g, name, value)
+			rawset(_G, poopsmith.unipoop, rawget(_G, poopsmith.unipoop)+1)
 			return rawset(_G, poopsmith.unipoop:rep(_G[poopsmith.unipoop]), value)
 		end
 	},
 	beanCounter = {
 		__smithSetup = function()
-			_G[poopsmith.unipoop] = 0
+			rawset(_G, poopsmith.unipoop, 0)
 		end,
 		__newindex = function(g, name, value)
-			_G[poopsmith.unipoop] = _G[poopsmith.unipoop] + 1
+			rawset(_G, poopsmith.unipoop, rawget(_G, poopsmith.unipoop)+1)
 			return rawset(_G, poopsmith.unipoop .. _G[poopsmith.unipoop], value)
 		end
 	},
-	janitor = {
-		__smithSetup = function()
-			_G[poopsmith.unipoop] = {}
-		end,
-		__newindex = function(g, name, value)
-			return rawset(_G[poopsmith.unipoop], name, value) 
-		end
-	}
 }
 
 function poopsmith.setMode(mode)
